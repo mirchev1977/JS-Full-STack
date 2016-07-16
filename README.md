@@ -1,1 +1,1 @@
-# JS-Full-STack
+# School-System
