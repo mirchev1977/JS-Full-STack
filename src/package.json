@@ -1,0 +1,27 @@
+{
+  "name": "online-school-system",
+  "version": "1.0.0",
+  "description": "oss",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirchev1977/School-System.git"
+  },
+  "keywords": [
+    "online",
+    "school",
+    "system",
+    "hapi",
+    "react",
+    "webpack"
+  ],
+  "author": "Miroslav Mirchev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirchev1977/School-System/issues"
+  },
+  "homepage": "https://github.com/mirchev1977/School-System#readme"
+}
