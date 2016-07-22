@@ -12,7 +12,6 @@ module.exports.getAll = function (request, reply) {
 };
 
 module.exports.getOne = function (request, reply) {
-
     this.db.get('SELECT * FROM topics WHERE id = ?', [request.params.id], (err, result) => {
 
         if (err) {
