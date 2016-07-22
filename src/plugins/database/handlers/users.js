@@ -32,17 +32,12 @@ module.exports.getOne = function (request, reply) {
 
 exports.create = function (request, reply) {
 
-    console.log(request.payload.password);
-
     // // Encrypt 
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
     let tok = CryptoJS.AES.encrypt(request.payload.email + ' ' + request.payload.password + ' student', 'this is the token');
     tok = tok.toString();
-
-    console.log(pass, 'password');
-    console.log(tok, 'token');
 
     const sql = 'INSERT INTO users (first_name, last_name, email, password, token, role, points)'+
     ' VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -55,6 +50,40 @@ exports.create = function (request, reply) {
             pass,
             tok,
             'student',
+            0
+        ],
+    (err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        reply({ status: 'ok' });
+    });
+
+};
+
+exports.createByAdmin = function (request, reply) {
+
+    // // Encrypt 
+    let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
+    pass = pass.toString();
+
+    let tok = CryptoJS.AES.encrypt(request.payload.email + ' ' + request.payload.password + ' ' + 
+        request.payload.role, 'this is the token');
+    tok = tok.toString();
+
+    const sql = 'INSERT INTO users (first_name, last_name, email, password, token, role, points)'+
+    ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+    this.db.run(sql,
+        [
+            request.payload.first_name,
+            request.payload.last_name,
+            request.payload.email,
+            pass,
+            tok,
+            request.payload.role,
             0
         ],
     (err) => {
