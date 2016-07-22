@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/mirchev1977/School-System#readme",
   "dependencies": {
-    "hapi": "^13.5.0"
+    "hapi": "^13.5.0",
+    "sqlite3": "^3.1.4"
   }
 }
