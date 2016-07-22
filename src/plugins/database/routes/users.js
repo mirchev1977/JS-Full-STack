@@ -24,4 +24,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.createByAdmin
+}, {
+    method: 'POST',
+    path: '/api/users/{userId}/subscribe/courses/{courseId}',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.subscribeCourse
 }];
