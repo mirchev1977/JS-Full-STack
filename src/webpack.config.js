@@ -1,14 +1,24 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var commonPlugins = new webpack.optimize.CommonsChunkPlugin('bundle.js');
+var commonPlugins = new webpack.optimize.CommonsChunkPlugin('shared.js');
 
 module.exports = {
-	entry: './index.es6',
-	output: './bundle.js',
+	context: path.resolve('js'),
+	entry: {
+		about: './about_page.es6',
+		home: './home_page.es6',
+		contact: './contact_page.es6'
+	},
+
+	output: {
+		path: path.resolve('build/js'),
+		publicPath: '/public/assets/js',
+		filename: '[name].js'
+	},
 	watch: true,
 
-	// plugins: [commonPlugins],
+	plugins: [commonPlugins],
 
 	module: {
 		loaders:[
@@ -30,9 +40,13 @@ module.exports = {
 			{
 				test: /\.(jpg|png)$/,
 				exclude: /node_modules/,
-				loader: 'url-loader?limit=10000'
+				loader: 'url-loader?limit=100000'
 			}
 		]
+	},
+
+	devServer: {
+		contentBase: 'public'
 	},
 
 	resolve: {
