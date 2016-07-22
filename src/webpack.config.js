@@ -1,10 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var commonPlugins = new webpack.optimize.CommonsChunkPlugin('bundle.js');
+
 module.exports = {
 	entry: './index.es6',
 	output: './bundle.js',
 	watch: true,
+
+	// plugins: [commonPlugins],
 
 	module: {
 		loaders:[
