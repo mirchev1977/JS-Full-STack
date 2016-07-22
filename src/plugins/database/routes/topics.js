@@ -6,4 +6,8 @@ module.exports = [{
     method: 'GET',
     path: '/api/topics',
     handler: Handlers.getAll
+}, {
+	method: 'GET',
+    path: '/api/topics/{id}',
+    handler: Handlers.getOne
 }];
