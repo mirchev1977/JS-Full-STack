@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/mirchev1977/School-System/issues"
   },
-  "homepage": "https://github.com/mirchev1977/School-System#readme"
+  "homepage": "https://github.com/mirchev1977/School-System#readme",
+  "dependencies": {
+    "hapi": "^13.5.0",
+    "sqlite3": "^3.1.4"
+  }
 }
