@@ -30,7 +30,7 @@ module.exports.getOne = function (request, reply) {
     });
 };
 
-exports.create = function (request, reply) {
+module.exports.create = function (request, reply) {
 
     // // Encrypt 
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
@@ -63,7 +63,7 @@ exports.create = function (request, reply) {
 
 };
 
-exports.createByAdmin = function (request, reply) {
+module.exports.createByAdmin = function (request, reply) {
 
     // // Encrypt 
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');

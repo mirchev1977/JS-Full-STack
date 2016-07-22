@@ -17,4 +17,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.create
+}, {
+    method: 'POST',
+    path: '/api/courses/{id}/details',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.enterDetails
 }];
