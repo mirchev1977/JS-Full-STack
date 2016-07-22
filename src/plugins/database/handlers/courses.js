@@ -26,3 +26,23 @@ module.exports.getOne = function (request, reply) {
         }
     });
 };
+
+exports.create = function (request, reply) {
+
+    const sql = 'INSERT INTO courses (name)'+
+    ' VALUES (?)';
+
+    this.db.run(sql,
+        [
+            request.payload.name
+        ],
+    (err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        reply({ status: 'ok' });
+    });
+
+};
