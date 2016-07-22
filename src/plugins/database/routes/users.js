@@ -31,4 +31,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.subscribeCourse
+}, {
+    method: 'POST',
+    path: '/api/users/{userId}/cover/topics/{topicId}',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.coverTopic
 }];

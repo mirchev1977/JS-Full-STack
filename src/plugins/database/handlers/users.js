@@ -175,3 +175,85 @@ module.exports.subscribeCourse = function (request, reply) {
     });
 
 };
+
+
+
+
+module.exports.coverTopic = function (request, reply) {
+
+    this.db.get('SELECT * FROM users WHERE id = ?', [request.params.userId], (err, resultUsr) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof resultUsr !== 'undefined') {
+            
+
+            /********************************
+            GET TOPIC ID
+            **********************************/
+
+            this.db.get('SELECT * FROM topics WHERE id = ?', [request.params.topicId], (err, resultTopic) => {
+
+                if (err) {
+                    throw err;
+                }
+
+                if (typeof resultTopic !== 'undefined') {
+
+
+                    /********************************
+                    USER COVERS A TOPIC
+                    **********************************/
+
+                    const sql = 'INSERT INTO user_topics (user_id, topic_id, completed)'+
+                    ' VALUES (?, ?, ?)';
+
+                    this.db.run(sql,
+                        [
+                            resultUsr.id,
+                            resultTopic.id,
+                            true
+                        ],
+                    (err) => {
+
+                        if (err) {
+                            throw err;
+                        }
+
+                        reply({ status: 'ok' });
+                    });
+
+
+                    /********************************
+                    END USER COVERS A TOPIC
+                    **********************************/
+
+
+
+                    
+                }
+                else {
+                    reply('Not found').code(404);
+                }
+            });
+
+            /********************************
+            END GET TOPIC ID
+            **********************************/
+
+
+
+
+
+
+
+
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+
+};
