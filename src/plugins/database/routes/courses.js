@@ -24,4 +24,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.enterDetails
+}, {
+    method: 'POST',
+    path: '/api/courses/{id}/material',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.enterMaterial
 }];
