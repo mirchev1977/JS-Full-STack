@@ -11,4 +11,21 @@ module.exports.getAll = function (request, reply) {
 
         reply(results);
     });
-}
+};
+
+module.exports.getOne = function (request, reply) {
+
+    this.db.get('SELECT * FROM users WHERE id = ?', [request.params.id], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            reply(result);
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
