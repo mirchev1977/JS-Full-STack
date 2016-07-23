@@ -2,6 +2,7 @@
 
 let Handlers = require('../handlers/users');
 
+
 module.exports = [{
     method: 'GET',
     path: '/api/users',
@@ -10,6 +11,22 @@ module.exports = [{
 	method: 'GET',
     path: '/api/users/{id}',
     handler: Handlers.getOne
+}, {
+    method: 'GET',
+    path: '/api/users/{id}/courses',
+    handler: Handlers.getCoursesSubscribedOn
+}, {
+    method: 'GET',
+    path: '/api/users/{id}/courses/{courseId}/materials',
+    handler: Handlers.getCourseMaterials,
+    config: {
+        pre: [
+            'servGetUser',
+            'servGetUserCourses',
+            'servGetCourseMaterials',
+            'servGetCourseMaterialsTopics'
+        ]
+    }
 }, {
     method: 'POST',
     path: '/api/users',

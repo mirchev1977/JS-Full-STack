@@ -30,6 +30,89 @@ module.exports.getOne = function (request, reply) {
     });
 };
 
+module.exports.getCoursesSubscribedOn = function (request, reply) {
+    this.db.all('SELECT u.id as usrId, u.first_name, u.last_name, u.role, c.id as courseId, c.name as courseName ' + 
+        ' FROM users as u INNER JOIN user_courses' + 
+        ' ON u.id=user_courses.user_id ' + 
+        ' INNER JOIN courses as c ON user_courses.course_id=c.id ' + 
+        ' WHERE u.id = ?', [request.params.id], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            reply(result);
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
+
+module.exports.getCourseMaterials = function (request, reply) {
+    let user = request.pre.servGetUser;
+  //   "id": 1,
+  // "first_name": "Patrick",
+  // "last_name": "McWayne",
+  // "email": "patrick@patrickwayne.com",
+  // "password": "patrick",
+  // "token": null,
+  // "role": "admin",
+  // "points": 0
+    let course = request.pre.servGetUserCourses;
+//     {
+//   "usrId": 1,
+//   "first_name": "Patrick",
+//   "last_name": "McWayne",
+//   "role": "admin",
+//   "courseId": 2,
+//   "courseName": "jQuery Basics"
+// }
+
+    request.pre.servGetCourseMaterials;
+
+
+    let materials = request.pre.servGetCourseMaterialsTopics;
+    // "id": 4,
+    // "title": "Introduction to jQuery\n\n",
+    // "text": "In this stage we'll cover the whys, whats and hows of jQuery. You'll learn why you would want to use jQuery, what jQuery is and how to include it in your projects.\n\n",
+    // "course_id": 2,
+    // "topics": [
+    //   {
+    //     "id": 1,
+    //     "topic": "JavaScript Everywhere",
+    //     "text":
+
+    let info = {
+        userId: user.id,
+        userName:  user.first_name,
+        lastName: user.last_name,
+        courseName: course.courseName,
+        materials: []
+    };
+
+    materials.forEach( function(material, index) {
+        let infoMaterial =  {
+            materialId: materials.id,
+            title: materials.title,
+            materialText: materials.text,
+            topicId: materials.id,
+            topic: materials.topic,
+            topicText: materials.text
+        }
+
+        info.materials.push(material);
+    });
+
+    
+
+    reply(info);
+
+    
+};
+
 module.exports.create = function (request, reply) {
 
     // // Encrypt 
