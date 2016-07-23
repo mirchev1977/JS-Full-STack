@@ -117,6 +117,59 @@ module.exports.GetQueries = function(server, db){
 
 
 
+    server.method('servGetCourseCompletedTopics', (request, reply) => {
+    	let materialsArr = request.pre.servGetCourseMaterials;
+    	let retArr = [];
+
+    	if (materialsArr.length > 0) {
+
+
+    		materialsArr.forEach( function(material, index) {
+    		var materialId = material.id;
+
+	    		db.all('SELECT t.id, t.topic, ut.completed FROM topics as t '  +  
+	    			' INNER JOIN user_topics as ut ON t.id=ut.topic_id' +
+	    			'  INNER JOIN users as u ON ut.user_id=u.id  ' +
+	    			' WHERE t.course_material_id= ?', 
+	    			[materialId], (err, result) => {
+
+	    			if (err) {
+	    				throw err;
+	    			}
+
+
+	    			if (typeof result !== 'undefined') {
+			            material.topics  =  result;
+	    				retArr.push(material);
+			        }
+			        else {
+			            reply('Not found').code(404);
+			        }
+
+
+	    			if (index === materialsArr.length - 1) {
+	    				reply(retArr);
+	    			}
+
+
+	    		});
+
+	    	});
+
+    	} else {
+    		reply(retArr);
+    	}
+
+
+    	
+
+    });
+
+
+
+
+
+
 
 
 
