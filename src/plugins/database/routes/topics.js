@@ -1,5 +1,6 @@
 'use strict';
 
+let Wreck = require('wreck');
 let Handlers = require('../handlers/topics');
 
 module.exports = [{

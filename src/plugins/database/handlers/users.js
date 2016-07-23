@@ -1,5 +1,7 @@
 'use strict';
 
+let Wreck = require('wreck');
+
 let CryptoJS = require("crypto-js");
 
 module.exports.getAll = function (request, reply) {

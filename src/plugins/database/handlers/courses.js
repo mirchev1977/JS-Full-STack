@@ -1,6 +1,9 @@
 'use strict';
 
+let Wreck = require('wreck');
+
 module.exports.getAll = function (request, reply) {
+
 	this.db.all('SELECT * FROM courses', (err, results) => {
 
 		if (err) {

@@ -1,6 +1,7 @@
 'use strict';
 
 let Handlers = require('../handlers/course-materials');
+let Wreck = require('wreck');
 
 module.exports = [{
     method: 'GET',
