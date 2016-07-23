@@ -118,6 +118,7 @@ module.exports.GetQueries = function(server, db){
 
 
     server.method('servGetCourseCompletedTopics', (request, reply) => {
+    	let userId = request.pre.servGetUser.id;
     	let materialsArr = request.pre.servGetCourseMaterials;
     	let retArr = [];
 
@@ -130,8 +131,8 @@ module.exports.GetQueries = function(server, db){
 	    		db.all('SELECT t.id, t.topic, ut.completed FROM topics as t '  +  
 	    			' INNER JOIN user_topics as ut ON t.id=ut.topic_id' +
 	    			'  INNER JOIN users as u ON ut.user_id=u.id  ' +
-	    			' WHERE t.course_material_id= ?', 
-	    			[materialId], (err, result) => {
+	    			' WHERE t.course_material_id= ? AND u.id= ?', 
+	    			[materialId, userId], (err, result) => {
 
 	    			if (err) {
 	    				throw err;
