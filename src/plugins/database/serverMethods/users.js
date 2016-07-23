@@ -81,7 +81,7 @@ module.exports.GetQueries = function(server, db){
     		materialsArr.forEach( function(material, index) {
     		var materialId = material.id;
 
-	    		db.all('SELECT * FROM topics WHERE course_material_id= ?', [materialId], (err, result) => {
+	    		db.all('SELECT id, topic FROM topics WHERE course_material_id= ?', [materialId], (err, result) => {
 
 	    			if (err) {
 	    				throw err;

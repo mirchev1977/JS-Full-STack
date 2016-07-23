@@ -95,15 +95,16 @@ module.exports.getCourseMaterials = function (request, reply) {
 
     materials.forEach( function(material, index) {
         let infoMaterial =  {
-            materialId: materials.id,
-            title: materials.title,
-            materialText: materials.text,
-            topicId: materials.id,
-            topic: materials.topic,
-            topicText: materials.text
+            materialId: material.id,
+            title: material.title,
+            materialText: material.text,
+            topics: material.topics
+            // topicId: materials.id,
+            // topic: materials.topic,
+            // topicText: materials.text
         }
 
-        info.materials.push(material);
+        info.materials.push(infoMaterial);
     });
 
     
