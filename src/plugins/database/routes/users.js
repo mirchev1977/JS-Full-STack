@@ -68,4 +68,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.coverTopic
+}, {
+    method: 'PUT',
+    path: '/api/users/{id}/increase-points',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.increasePoints
 }];

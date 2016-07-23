@@ -411,3 +411,30 @@ module.exports.coverTopic = function (request, reply) {
     });
 
 };
+
+
+module.exports.increasePoints = function(request, reply){
+    let uri = request.server.info.uri;
+    let that = this;
+    Wreck.get(uri + '/api/users/' + request.params.id, (err, res, payload) => {
+        payload = JSON.parse(payload);
+       
+
+        let usrId = payload.id;
+        let points = payload.points;
+        ++points;
+        payload.points = points;
+
+        this.db.run('UPDATE users SET points = ? WHERE id = ?', 
+            [points, usrId], (err, result) => {
+
+            if (err) {
+                throw err;
+            }
+
+            reply(payload);
+        });
+
+    });
+
+};
