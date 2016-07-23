@@ -114,6 +114,74 @@ module.exports.getCourseMaterials = function (request, reply) {
     
 };
 
+
+
+module.exports.getCourseCompletedTopics = function (request, reply) {
+    let user = request.pre.servGetUser;
+  //   "id": 1,
+  // "first_name": "Patrick",
+  // "last_name": "McWayne",
+  // "email": "patrick@patrickwayne.com",
+  // "password": "patrick",
+  // "token": null,
+  // "role": "admin",
+  // "points": 0
+    let course = request.pre.servGetUserCourses;
+//     {
+//   "usrId": 1,
+//   "first_name": "Patrick",
+//   "last_name": "McWayne",
+//   "role": "admin",
+//   "courseId": 2,
+//   "courseName": "jQuery Basics"
+// }
+
+    request.pre.servGetCourseMaterials;
+
+
+    let materials = request.pre.servGetCourseCompletedTopics;
+    // "id": 4,
+    // "title": "Introduction to jQuery\n\n",
+    // "text": "In this stage we'll cover the whys, whats and hows of jQuery. You'll learn why you would want to use jQuery, what jQuery is and how to include it in your projects.\n\n",
+    // "course_id": 2,
+    // "topics": [
+    //   {
+    //     "id": 1,
+    //     "topic": "JavaScript Everywhere",
+    //     "text":
+
+    let info = {
+        userId: user.id,
+        userName:  user.first_name,
+        lastName: user.last_name,
+        courseName: course.courseName,
+        materials: []
+    };
+
+    materials.forEach( function(material, index) {
+        let infoMaterial =  {
+            materialId: material.id,
+            title: material.title,
+            materialText: material.text,
+            topics: material.topics
+            // topicId: materials.id,
+            // topic: materials.topic,
+            // topicText: materials.text
+        }
+
+        info.materials.push(infoMaterial);
+    });
+
+    
+
+    reply(info);
+
+    
+};
+
+
+
+
 module.exports.create = function (request, reply) {
 
     // // Encrypt 

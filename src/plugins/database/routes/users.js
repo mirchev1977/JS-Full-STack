@@ -28,6 +28,18 @@ module.exports = [{
         ]
     }
 }, {
+    method: 'GET',
+    path: '/api/users/{id}/courses/{courseId}/completed-topics',
+    handler: Handlers.getCourseCompletedTopics,
+    config: {
+        pre: [
+            'servGetUser',
+            'servGetUserCourses',
+            'servGetCourseMaterials',
+            'servGetCourseCompletedTopics'
+        ]
+    }
+}, {
     method: 'POST',
     path: '/api/users',
     // config: {
