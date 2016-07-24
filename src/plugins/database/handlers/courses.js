@@ -145,6 +145,17 @@ module.exports.enterMaterial = function (request, reply) {
     });
 };
 
+module.exports.edit = function(request, reply){
+    this.db.run('UPDATE courses SET name = ? WHERE id = ?',
+     [request.payload.name, request.params.id], (err, result) =>{
+        if (err) {
+            throw err;
+        }
+
+        reply({status: 'ok'});
+    });
+};
+
 module.exports.delete = function(request, reply){
     request.pre.servDelCourseMaterials;
     this.db.run('DELETE FROM course_details WHERE course_id = ?',
