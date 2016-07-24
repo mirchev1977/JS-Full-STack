@@ -82,4 +82,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.increasePoints
+}, {
+    method: 'DELETE',
+    path: '/api/users/{id}',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.delete
 }];

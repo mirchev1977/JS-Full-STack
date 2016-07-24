@@ -456,3 +456,56 @@ module.exports.increasePoints = function(request, reply){
     });
 
 };
+
+module.exports.delete = function(request, reply){
+    let usrId = request.params.id;
+
+    this.db.run('DELETE FROM users WHERE id = ?', 
+        [
+            usrId
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        this.db.run('DELETE FROM user_courses WHERE user_id = ?', 
+            [
+                usrId
+            ], (err, result) => {
+            
+
+            if (err) {
+                throw err;
+            }
+
+
+
+
+            this.db.run('DELETE FROM user_topics WHERE user_id = ?', 
+                [
+                    usrId
+                ], (err, result) => {
+                
+
+                if (err) {
+                    throw err;
+                }
+
+                reply({status:"deleted"});
+            });
+
+
+
+
+
+
+
+            
+        });
+
+
+
+    });
+};
