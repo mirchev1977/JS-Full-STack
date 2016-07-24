@@ -16,6 +16,10 @@ module.exports = [{
     path: '/api/topics',
     handler: Handlers.create
 }, {
+    method: 'PUT',
+    path: '/api/topics/{id}',
+    handler: Handlers.edit
+}, {
 	method: 'DELETE',
     path: '/api/topics/{id}',
     handler: Handlers.delete

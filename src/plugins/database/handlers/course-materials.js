@@ -98,6 +98,26 @@ module.exports.enterTopic = function (request, reply) {
     });
 };
 
+module.exports.edit = function(request, reply){
+
+    this.db.run('UPDATE course_materials SET title = ?, text = ?, course_id = ? WHERE id = ?', 
+        [
+            request.payload.title,
+            request.payload.text,
+            request.payload.course_id,
+            request.params.id
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        reply('ok');
+    });
+
+};
+
 
 
 module.exports.delete = function (request, reply) {

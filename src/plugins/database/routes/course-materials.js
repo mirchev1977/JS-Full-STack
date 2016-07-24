@@ -26,6 +26,13 @@ module.exports = [{
     // },
     handler: Handlers.enterTopic
 }, {
+    method: 'PUT',
+    path: '/api/course-materials/{id}',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.edit
+}, {
     method: 'DELETE',
     path: '/api/course-materials/{id}',
     config: {

@@ -52,6 +52,26 @@ module.exports.create = function (request, reply) {
 
 };
 
+module.exports.edit = function(request, reply){
+
+    this.db.run('UPDATE topics SET topic = ?, text = ?, course_material_id = ? WHERE id = ?', 
+        [
+            request.payload.topic,
+            request.payload.text,
+            request.payload.course_material_id,
+            request.params.id
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        reply('ok');
+    });
+
+};
+
 
 module.exports.delete = function (request, reply) {
     let topicId = request.params.id;
