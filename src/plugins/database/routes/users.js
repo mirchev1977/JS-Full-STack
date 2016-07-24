@@ -49,6 +49,22 @@ module.exports = [{
     handler: Handlers.checkTopicCompleted
 }, {
     method: 'POST',
+    path: '/api/users/login',
+    // config: {
+    //     plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+    //     auth: 'api'
+    // },
+    handler: Handlers.login
+}, {
+    method: 'POST',
+    path: '/api/users/logout',
+    // config: {
+    //     plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+    //     auth: 'api'
+    // },
+    handler: Handlers.logout
+}, {
+    method: 'POST',
     path: '/api/users',
     // config: {
     //     auth: 'api'

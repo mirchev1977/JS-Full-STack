@@ -1,6 +1,7 @@
 'use strict';
 
 let Wreck = require('wreck');
+let cookieAuth = require('hapi-auth-cookie');
 
 let CryptoJS = require("crypto-js");
 
@@ -31,6 +32,7 @@ module.exports.getOne = function (request, reply) {
         }
     });
 };
+
 
 module.exports.getCoursesSubscribedOn = function (request, reply) {
     this.db.all('SELECT u.id as usrId, u.first_name, u.last_name, u.role, c.id as courseId, c.name as courseName ' + 
@@ -204,11 +206,11 @@ module.exports.checkTopicCompleted = function (request, reply) {
 
 
 module.exports.create = function (request, reply) {
-
-    // // Encrypt 
+    //Encrypt
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
+    // Encrypt 
     let tokenStr = '{"email": "' +  request.payload.email  + 
     '","password":"' + request.payload.password + '","role":"student"}';
 
@@ -238,6 +240,51 @@ module.exports.create = function (request, reply) {
     });
 
 };
+
+module.exports.login = function (request, reply) {
+    // Encrypt 
+    // let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
+    // pass = pass.toString();
+    // console.log(pass);
+
+    this.db.get('SELECT * FROM users WHERE email = ?', 
+        [request.payload.email], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            let encrPass = result.password;
+
+
+
+            // Decrypt 
+            let bytes  = CryptoJS.AES.decrypt(encrPass.toString(), 'secret key 123');
+            let plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+
+            if (plaintext === request.payload.password) {
+                // console.log(request.state.oss);
+
+                reply('ok').state('oss', request.payload.token);
+            } else {
+                reply('Not found').code(404);
+            }
+
+
+
+
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
+module.exports.logout = function(request, reply){
+    reply('logged out').unstate('oss');
+}
 
 module.exports.createByAdmin = function (request, reply) {
 
