@@ -32,4 +32,16 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.enterMaterial
+}, {
+    method: 'DELETE',
+    path: '/api/courses/{id}',
+    config: {
+        pre: [
+            'servGetMaterialIds',
+            'servDelCourseMaterials'
+        ],
+
+        // auth: 'api'
+    },
+    handler: Handlers.delete
 }];

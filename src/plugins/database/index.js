@@ -4,6 +4,7 @@ const Hapi = require('hapi');
 const Sqlite3 = require('sqlite3');
 const UserServerMethods = require('./serverMethods/users.js');
 const CourseMaterialsServerMethods = require('./serverMethods/course-materials.js');
+const CoursesServerMethods = require('./serverMethods/courses.js');
 
 const DB_FILE = __dirname + './oss.sqlite';
 
@@ -16,6 +17,8 @@ exports.register = function(server, options, next){
 
 	UserServerMethods.UserGetQueries(server, db);
 	CourseMaterialsServerMethods.CourseMaterialDeleteQueries(server, db);
+	CoursesServerMethods.CourseGetQueries(server, db);
+	CoursesServerMethods.CourseDeleteQueries(server, db);
 
 
 	server.route(require('./routes/routes'));

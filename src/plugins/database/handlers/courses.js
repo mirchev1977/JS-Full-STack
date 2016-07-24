@@ -144,3 +144,29 @@ module.exports.enterMaterial = function (request, reply) {
         }
     });
 };
+
+module.exports.delete = function(request, reply){
+    request.pre.servDelCourseMaterials;
+    this.db.run('DELETE FROM course_details WHERE course_id = ?',
+     [request.params.id], (err, result) =>{
+        if (err) {
+            throw err;
+        }
+
+        this.db.run('DELETE FROM courses WHERE id = ?',
+         [request.params.id], (err, result) =>{
+            if (err) {
+                throw err;
+            }
+
+            this.db.run('DELETE FROM user_courses WHERE course_id = ?',
+             [request.params.id], (err, result) =>{
+                if (err) {
+                    throw err;
+                }
+
+                reply({status:'deleted'});
+            });
+        });
+    });
+};
