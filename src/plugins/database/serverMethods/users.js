@@ -5,7 +5,7 @@ let Wreck = require('wreck');
 
 
 
-module.exports.GetQueries = function(server, db){
+module.exports.UserGetQueries = function(server, db){
 
 
 

@@ -76,3 +76,9 @@ module.exports.enterTopic = function (request, reply) {
         }
     });
 };
+
+
+
+module.exports.delete = function (request, reply) {
+     reply(request.pre.servDelUserTopics);
+};

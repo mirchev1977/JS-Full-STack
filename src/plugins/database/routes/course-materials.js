@@ -18,4 +18,15 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.enterTopic
+}, {
+    method: 'DELETE',
+    path: '/api/course-materials/{id}',
+    config: {
+        pre:[
+            'servDelMaterialTopic',
+            'servDelUserTopics'
+        ],
+        // auth: 'api'
+    },
+    handler: Handlers.delete
 }];
