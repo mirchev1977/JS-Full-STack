@@ -70,6 +70,13 @@ module.exports = [{
     handler: Handlers.coverTopic
 }, {
     method: 'PUT',
+    path: '/api/users/{id}/edit',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.edit
+}, {
+    method: 'PUT',
     path: '/api/users/{id}/increase-points',
     // config: {
     //     auth: 'api'

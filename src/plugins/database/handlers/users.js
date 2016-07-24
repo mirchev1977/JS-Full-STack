@@ -190,7 +190,10 @@ module.exports.create = function (request, reply) {
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
-    let tok = CryptoJS.AES.encrypt(request.payload.email + ' ' + request.payload.password + ' student', 'this is the token');
+    let tokenStr = '{"email": "' +  request.payload.email  + 
+    '","password":"' + request.payload.password + '","role":"student"}';
+
+    let tok = CryptoJS.AES.encrypt(tokenStr, 'this is the token');
     tok = tok.toString();
 
     const sql = 'INSERT INTO users (first_name, last_name, email, password, token, role, points)'+
@@ -223,8 +226,10 @@ module.exports.createByAdmin = function (request, reply) {
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
-    let tok = CryptoJS.AES.encrypt(request.payload.email + ' ' + request.payload.password + ' ' + 
-        request.payload.role, 'this is the token');
+    let tokenStr = '{"email": "' +  request.payload.email  + 
+    '","password":"' + request.payload.password + '","role":"' + request.payload.role + '"}';
+
+    let tok = CryptoJS.AES.encrypt(tokenStr, 'this is the token');
     tok = tok.toString();
 
     const sql = 'INSERT INTO users (first_name, last_name, email, password, token, role, points)'+
@@ -412,6 +417,27 @@ module.exports.coverTopic = function (request, reply) {
 
 };
 
+module.exports.edit = function(request, reply){
+
+    this.db.run('UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?', 
+        [
+            request.payload.first_name,
+            request.payload.last_name,
+            request.payload.email,
+            request.payload.role,
+            request.params.id
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        reply('ok');
+    });
+
+};
+
 
 module.exports.increasePoints = function(request, reply){
     let uri = request.server.info.uri;
@@ -425,15 +451,7 @@ module.exports.increasePoints = function(request, reply){
         ++points;
         payload.points = points;
 
-        this.db.run('UPDATE users SET points = ? WHERE id = ?', 
-            [points, usrId], (err, result) => {
-
-            if (err) {
-                throw err;
-            }
-
-            reply(payload);
-        });
+        
 
     });
 
