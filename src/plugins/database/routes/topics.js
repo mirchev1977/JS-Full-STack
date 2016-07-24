@@ -11,4 +11,8 @@ module.exports = [{
 	method: 'GET',
     path: '/api/topics/{id}',
     handler: Handlers.getOne
+}, {
+	method: 'DELETE',
+    path: '/api/topics/{id}',
+    handler: Handlers.delete
 }];

@@ -28,3 +28,37 @@ module.exports.getOne = function (request, reply) {
         }
     });
 };
+
+module.exports.delete = function (request, reply) {
+    let topicId = request.params.id;
+
+    this.db.run('DELETE FROM topics WHERE id = ?', 
+        [
+            topicId
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+
+
+
+        this.db.run('DELETE FROM user_topics WHERE topic_id = ?', 
+            [
+                topicId
+            ], (err, result) => {
+            
+
+            if (err) {
+                throw err;
+            }
+
+            reply({status:"deleted"});
+        });
+
+
+        
+    });
+};
