@@ -41,6 +41,13 @@ module.exports = [{
         ]
     }
 }, {
+    method: 'GET',
+    path: '/api/users/{id}/topic/{topicId}',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.checkTopicCompleted
+}, {
     method: 'POST',
     path: '/api/users',
     // config: {

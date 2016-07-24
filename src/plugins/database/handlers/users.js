@@ -181,6 +181,25 @@ module.exports.getCourseCompletedTopics = function (request, reply) {
     
 };
 
+module.exports.checkTopicCompleted = function (request, reply) {
+    this.db.get('SELECT * FROM users as u INNER JOIN user_topics as ut  ' + 
+        '  ON u.id = ut.user_id '  +
+        ' WHERE id = ? AND ut.user_id = ? AND ut.topic_id = ?', 
+        [request.params.id, request.params.id, request.params.topicId], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            reply({status: 'completed'});
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
 
 
 
