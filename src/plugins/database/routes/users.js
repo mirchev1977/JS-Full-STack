@@ -89,4 +89,11 @@ module.exports = [{
     //     auth: 'api'
     // },
     handler: Handlers.delete
+}, {
+    method: 'DELETE',
+    path: '/api/users/{id}/unsubscribe-course',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.unsubscribeCourse
 }];

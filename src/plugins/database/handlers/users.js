@@ -509,3 +509,40 @@ module.exports.delete = function(request, reply){
 
     });
 };
+
+
+module.exports.unsubscribeCourse = function(request, reply){
+    let usrId = request.params.id;
+
+    this.db.run('DELETE FROM user_courses WHERE user_id = ?', 
+        [
+            usrId
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+
+
+
+        this.db.run('DELETE FROM user_topics WHERE user_id = ?', 
+            [
+                usrId
+            ], (err, result) => {
+            
+
+            if (err) {
+                throw err;
+            }
+
+            reply({status:"deleted"});
+        });
+
+
+        
+    });
+
+
+};
