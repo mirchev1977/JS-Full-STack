@@ -13,6 +13,13 @@ module.exports = [{
     handler: Handlers.getOne
 }, {
     method: 'POST',
+    path: '/api/course-materials',
+    // config: {
+    //     auth: 'api'
+    // },
+    handler: Handlers.create
+}, {
+    method: 'POST',
     path: '/api/course-materials/{id}/topic',
     // config: {
     //     auth: 'api'

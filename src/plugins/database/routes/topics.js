@@ -12,6 +12,10 @@ module.exports = [{
     path: '/api/topics/{id}',
     handler: Handlers.getOne
 }, {
+	method: 'POST',
+    path: '/api/topics',
+    handler: Handlers.create
+}, {
 	method: 'DELETE',
     path: '/api/topics/{id}',
     handler: Handlers.delete

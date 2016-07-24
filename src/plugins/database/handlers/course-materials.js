@@ -30,6 +30,27 @@ module.exports.getOne = function (request, reply) {
     });
 };
 
+module.exports.create = function (request, reply) {
+
+    const sql = 'INSERT INTO course_materials (title, text, course_id)'+
+    ' VALUES (?, ?, ?)';
+
+    this.db.run(sql,
+        [
+            request.payload.title,
+            request.payload.text,
+            request.payload.course_id
+        ],
+    (err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        reply({ status: 'ok' });
+    });
+};
+
 module.exports.enterTopic = function (request, reply) {
 
     this.db.get('SELECT * FROM course_materials WHERE id = ?', [request.params.id], (err, result) => {

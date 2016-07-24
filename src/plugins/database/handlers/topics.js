@@ -29,6 +29,30 @@ module.exports.getOne = function (request, reply) {
     });
 };
 
+module.exports.create = function (request, reply) {
+
+
+    const sql = 'INSERT INTO topics (topic, text, course_material_id)'+
+    ' VALUES (?, ?, ?)';
+
+    this.db.run(sql,
+        [
+            request.payload.topic,
+            request.payload.text,
+            request.payload.course_material_id
+        ],
+    (err) => {
+
+        if (err) {
+            throw err;
+        }
+
+        reply({ status: 'ok' });
+    });
+
+};
+
+
 module.exports.delete = function (request, reply) {
     let topicId = request.params.id;
 
