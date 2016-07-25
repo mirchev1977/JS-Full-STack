@@ -40,7 +40,7 @@ module.exports = [{
             'servDelMaterialTopic',
             'servDelUserTopics'
         ],
-        // auth: 'api'
+        auth: 'admin-teacher'
     },
     handler: Handlers.delete
 }];

@@ -14,13 +14,22 @@ module.exports = [{
 }, {
 	method: 'POST',
     path: '/api/topics',
+    config: {
+        auth: 'admin-teacher'
+    },
     handler: Handlers.create
 }, {
     method: 'PUT',
     path: '/api/topics/{id}',
+    config: {
+        auth: 'admin-teacher'
+    },
     handler: Handlers.edit
 }, {
 	method: 'DELETE',
     path: '/api/topics/{id}',
+    config: {
+        auth: 'admin-teacher'
+    },
     handler: Handlers.delete
 }];

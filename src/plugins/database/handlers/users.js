@@ -483,7 +483,7 @@ module.exports.coverTopic = function (request, reply) {
 
 };
 
-module.exports.edit = function(request, reply){
+module.exports.editAdmin = function(request, reply){
 
     this.db.run('UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?', 
         [
@@ -491,6 +491,26 @@ module.exports.edit = function(request, reply){
             request.payload.last_name,
             request.payload.email,
             request.payload.role,
+            request.params.id
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        reply('ok');
+    });
+
+};
+
+module.exports.edit = function(request, reply){
+
+    this.db.run('UPDATE users SET first_name = ?, last_name = ?, email = ? WHERE id = ?', 
+        [
+            request.payload.first_name,
+            request.payload.last_name,
+            request.payload.email,
             request.params.id
         ], (err, result) => {
         
