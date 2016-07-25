@@ -44,3 +44,13 @@ bearer U2FsdGVkX1+a9LFKtSlk/BdLhCGDV4va7Y0tb3cf9A0aW2W5YQ1XQQLGO1/iXQDHu3kmEmqlu
 
 ------------------------------------------
 -------------------------------------------
+
+SQL INSERTS
+
+Create Course Pesho
+
+INSERT INTO courses(id, name) VALUES("4", "pesho")
+INSERT INTO course_details(id,topic,description,course_id,teacher) VALUES("4", "pesho","pesho","4","pesho")
+INSERT INTO course_materials(id,title,text,course_id) VALUES("8", "pesho","pesho","4")
+INSERT INTO topics(id,topic,text,course_material_id) VALUES("8", "pesho","pesho","8")
+INSERT INTO user_topics(user_id,topic_id,completed) VALUES("2", "8",1)

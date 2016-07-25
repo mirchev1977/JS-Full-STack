@@ -28,7 +28,6 @@ exports.validateRegistered = function (token, callback) {
 };
 
 exports.validateAdminTeacher = function (token, callback) {
-
     this.get('SELECT * FROM users WHERE token = ?', 
         [token], (err, result) => {
 
@@ -41,10 +40,10 @@ exports.validateAdminTeacher = function (token, callback) {
         if (!user) {
             return callback(null, false);
         }
-
-        if (user.role !== 'admin' || user.role !== 'teacher') {
+        if (user.role != 'admin' && user.role != 'teacher') {
             return callback(null, false);
         }
+
 
         callback(null, true, {
             firstName: user.firstName,
