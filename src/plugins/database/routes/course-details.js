@@ -6,21 +6,21 @@ module.exports = [{
     method: 'POST',
     path: '/api/course-details',
     config:{
-    	auth: 'admin-teacher'
+    	auth: 'adminTeacher'
     },
     handler: Handlers.create
 },{
     method: 'PUT',
     path: '/api/course-details/{id}/edit',
     config:{
-    	auth: 'admin-teacher'
+    	auth: 'adminTeacher'
     },
     handler: Handlers.edit
 }, {
     method: 'DELETE',
     path: '/api/course-details/{id}',
     config:{
-    	auth: 'admin-teacher'
+    	auth: 'adminTeacher'
     },
     handler: Handlers.delete
 }];

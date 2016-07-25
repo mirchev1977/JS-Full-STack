@@ -31,7 +31,7 @@ exports.register = function(server, options, next){
             validateFunc: Auth.validateRegistered.bind(db)
         });
 
-         server.auth.strategy('admin-teacher', 'bearer-access-token', {
+         server.auth.strategy('adminTeacher', 'bearer-access-token', {
             validateFunc: Auth.validateAdminTeacher.bind(db)
         });
 

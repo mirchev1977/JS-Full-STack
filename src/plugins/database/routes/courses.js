@@ -15,35 +15,35 @@ module.exports = [{
     method: 'POST',
     path: '/api/courses',
     config: {
-        auth: 'admin-teacher'
+        auth: 'adminTeacher'
     },
     handler: Handlers.create
 }, {
     method: 'POST',
     path: '/api/courses/{id}/details',
     config: {
-        auth: 'admin-teacher'
+        auth: 'adminTeacher'
     },
     handler: Handlers.enterDetails
 }, {
     method: 'POST',
     path: '/api/courses/{id}/material',
     config: {
-        auth: 'admin-teacher'
+        auth: 'adminTeacher'
     },
     handler: Handlers.enterMaterial
 }, {
     method: 'PUT',
     path: '/api/courses/{id}',
     config: {
-        auth: 'admin-teacher'
+        auth: 'adminTeacher'
     },
     handler: Handlers.edit
 }, {
     method: 'DELETE',
     path: '/api/courses/{id}',
     config: {
-        auth: 'admin',
+        auth: 'adminTeacher',
         pre: [
             'servGetMaterialIds',
             'servDelCourseMaterials'
