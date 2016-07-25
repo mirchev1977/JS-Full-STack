@@ -267,7 +267,7 @@ module.exports.login = function (request, reply) {
             if (plaintext === request.payload.password) {
                 // console.log(request.state.oss);
 
-                reply('ok').state('oss', request.payload.token);
+                reply('ok').state('oss', result.token, {path:'/'});
             } else {
                 reply('Not found').code(404);
             }
@@ -283,7 +283,7 @@ module.exports.login = function (request, reply) {
 };
 
 module.exports.logout = function(request, reply){
-    reply('logged out').unstate('oss');
+    reply('logged out').unstate('oss', {path:'/'});
 }
 
 module.exports.createByAdmin = function (request, reply) {
