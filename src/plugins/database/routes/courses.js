@@ -6,9 +6,6 @@ let Handlers = require('../handlers/courses');
 module.exports = [{
     method: 'GET',
     path: '/api/courses',
-    config:{
-        auth: 'registered'
-    },
     handler: Handlers.getAll
 }, {
 	method: 'GET',

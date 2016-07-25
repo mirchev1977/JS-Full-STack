@@ -35,6 +35,10 @@ exports.register = function(server, options, next){
             validateFunc: Auth.validateAdminTeacher.bind(db)
         });
 
+         server.auth.strategy('admin', 'bearer-access-token', {
+            validateFunc: Auth.validateAdmin.bind(db)
+        });
+
         server.route(require('./routes/routes'));
 
         next();
