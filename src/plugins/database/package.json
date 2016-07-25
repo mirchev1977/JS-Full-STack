@@ -27,6 +27,8 @@
   "dependencies": {
     "crypto-js": "^3.1.6",
     "hapi": "^13.5.0",
+    "hapi-auth-cookie": "^6.1.1",
+    "phpbb-password": "^0.2.0",
     "sqlite3": "^3.1.4",
     "wreck": "^8.0.0"
   }

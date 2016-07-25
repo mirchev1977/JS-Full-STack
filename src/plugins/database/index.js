@@ -2,6 +2,7 @@
 
 const Hapi = require('hapi');
 const Sqlite3 = require('sqlite3');
+const Auth = require('./lib/auth');
 const UserServerMethods = require('./serverMethods/users.js');
 const CourseMaterialsServerMethods = require('./serverMethods/course-materials.js');
 const CoursesServerMethods = require('./serverMethods/courses.js');
@@ -20,10 +21,28 @@ exports.register = function(server, options, next){
 	CoursesServerMethods.CourseGetQueries(server, db);
 	CoursesServerMethods.CourseDeleteQueries(server, db);
 
+	server.register(require('hapi-auth-bearer-token'), (err) => {
 
-	server.route(require('./routes/routes'));
+        if (err) {
+            return next(err);
+        }
 
-	next();
+        server.auth.strategy('registered', 'bearer-access-token', {
+            validateFunc: Auth.validateRegistered.bind(db)
+        });
+
+         server.auth.strategy('adminTeacher', 'bearer-access-token', {
+            validateFunc: Auth.validateAdminTeacher.bind(db)
+        });
+
+         server.auth.strategy('admin', 'bearer-access-token', {
+            validateFunc: Auth.validateAdmin.bind(db)
+        });
+
+        server.route(require('./routes/routes'));
+
+        next();
+    });
 }
 
 exports.register.attributes = {

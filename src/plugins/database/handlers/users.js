@@ -1,6 +1,7 @@
 'use strict';
 
 let Wreck = require('wreck');
+let cookieAuth = require('hapi-auth-cookie');
 
 let CryptoJS = require("crypto-js");
 
@@ -31,6 +32,24 @@ module.exports.getOne = function (request, reply) {
         }
     });
 };
+
+
+module.exports.getOneByUser = function (request, reply) {
+    this.db.get('SELECT * FROM users WHERE id = ?', [request.payload.id], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            reply(result);
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
 
 module.exports.getCoursesSubscribedOn = function (request, reply) {
     this.db.all('SELECT u.id as usrId, u.first_name, u.last_name, u.role, c.id as courseId, c.name as courseName ' + 
@@ -204,11 +223,11 @@ module.exports.checkTopicCompleted = function (request, reply) {
 
 
 module.exports.create = function (request, reply) {
-
-    // // Encrypt 
+    //Encrypt
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
+    // Encrypt 
     let tokenStr = '{"email": "' +  request.payload.email  + 
     '","password":"' + request.payload.password + '","role":"student"}';
 
@@ -238,6 +257,51 @@ module.exports.create = function (request, reply) {
     });
 
 };
+
+module.exports.login = function (request, reply) {
+    // Encrypt 
+    // let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
+    // pass = pass.toString();
+    // console.log(pass);
+
+    this.db.get('SELECT * FROM users WHERE email = ?', 
+        [request.payload.email], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            let encrPass = result.password;
+
+
+
+            // Decrypt 
+            let bytes  = CryptoJS.AES.decrypt(encrPass.toString(), 'secret key 123');
+            let plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+
+            if (plaintext === request.payload.password) {
+                // console.log(request.state.oss);
+
+                reply('ok').state('oss', result.token, {path:'/'});
+            } else {
+                reply('Not found').code(404);
+            }
+
+
+
+
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
+module.exports.logout = function(request, reply){
+    reply('logged out').unstate('oss', {path:'/'});
+}
 
 module.exports.createByAdmin = function (request, reply) {
 
@@ -436,7 +500,7 @@ module.exports.coverTopic = function (request, reply) {
 
 };
 
-module.exports.edit = function(request, reply){
+module.exports.editAdmin = function(request, reply){
 
     this.db.run('UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?', 
         [
@@ -457,21 +521,60 @@ module.exports.edit = function(request, reply){
 
 };
 
+module.exports.edit = function(request, reply){
+
+    this.db.run('UPDATE users SET first_name = ?, last_name = ?, email = ? WHERE id = ?', 
+        [
+            request.payload.first_name,
+            request.payload.last_name,
+            request.payload.email,
+            request.params.id
+        ], (err, result) => {
+        
+
+        if (err) {
+            throw err;
+        }
+
+        reply('ok');
+    });
+
+};
+
 
 module.exports.increasePoints = function(request, reply){
     let uri = request.server.info.uri;
     let that = this;
-    Wreck.get(uri + '/api/users/' + request.params.id, (err, res, payload) => {
-        payload = JSON.parse(payload);
+    let tokenBearer = 'bearer ' + request.auth.credentials.token;
+    Wreck.get(uri + '/api/users/' + request.params.id, {headers: {'Authorization': tokenBearer}},  (err, res, payload) => {
+        if (err) {
+            throw err;
+        }
+
+        if (payload) {
+            payload = JSON.parse(payload);
        
 
-        let usrId = payload.id;
-        let points = payload.points;
-        ++points;
-        payload.points = points;
+            let usrId = payload.id;
+            let points = payload.points;
+            ++points;
 
-        
+            this.db.run('UPDATE users SET points = ? WHERE id = ?', 
+                [
+                    points,
+                    usrId
+                ], (err, result) => {
+                
 
+                if (err) {
+                    throw err;
+                }
+
+                reply('ok');
+            });
+        } else {
+            reply('Not found').code(404);
+        }
     });
 
 };
