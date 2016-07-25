@@ -2,6 +2,9 @@
 
 let Wreck = require('wreck');
 let Handlers = require('../handlers/topics');
+let Val = require('../lib/validation/topics');
+const Joi = require('joi');
+
 
 module.exports = [{
     method: 'GET',
@@ -15,7 +18,13 @@ module.exports = [{
 	method: 'POST',
     path: '/api/topics',
     config: {
-        auth: 'adminTeacher'
+        auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.create
+        }
     },
     handler: Handlers.create
 }, {

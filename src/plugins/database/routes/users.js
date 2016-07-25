@@ -2,6 +2,9 @@
 
 let Wreck = require('wreck');
 let Handlers = require('../handlers/users');
+let Val = require('../lib/validation/users');
+const Joi = require('joi');
+
 
 
 module.exports = [{
@@ -68,6 +71,14 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/api/users/login',
+    config:{
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.login
+        }
+    },
     handler: Handlers.login
 }, {
     method: 'POST',
@@ -79,12 +90,26 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/api/users',
+    config:{
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.create
+        }
+    },
     handler: Handlers.create
 }, {
     method: 'POST',
     path: '/api/admin/users',
     config: {
-        auth: 'admin'
+        auth: 'admin',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.createByAdmin
+        }
     },
     handler: Handlers.createByAdmin
 }, {
@@ -105,14 +130,26 @@ module.exports = [{
     method: 'PUT',
     path: '/api/users/{id}/edit-admin',
     config: {
-        auth: 'admin'
+        auth: 'admin',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.editAdmin
+        }
     },
     handler: Handlers.editAdmin
 }, {
     method: 'PUT',
     path: '/api/users/{id}/edit',
     config: {
-        auth: 'registered'
+        auth: 'registered',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.edit
+        }
     },
     handler: Handlers.edit
 }, {

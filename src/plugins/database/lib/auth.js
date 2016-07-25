@@ -1,5 +1,7 @@
 'use strict';
 
+'use strict';
+
 exports.validateRegistered = function (token, callback) {
 
     this.get('SELECT * FROM users WHERE token = ?', 

@@ -2,6 +2,9 @@
 
 let Handlers = require('../handlers/course-materials');
 let Wreck = require('wreck');
+let Val = require('../lib/validation/course-materials');
+const Joi = require('joi');
+
 
 module.exports = [{
     method: 'GET',
@@ -14,23 +17,41 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/api/course-materials',
-    // config: {
-    //     auth: 'api'
-    // },
+    config: {
+        auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.create
+        }
+    },
     handler: Handlers.create
 }, {
     method: 'POST',
     path: '/api/course-materials/{id}/topic',
-    // config: {
-    //     auth: 'api'
-    // },
+    config: {
+        auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.enterTopic
+        }
+    },
     handler: Handlers.enterTopic
 }, {
     method: 'PUT',
     path: '/api/course-materials/{id}',
-    // config: {
-    //     auth: 'api'
-    // },
+    config: {
+        auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.edit
+        }
+    },
     handler: Handlers.edit
 }, {
     method: 'DELETE',

@@ -1,19 +1,35 @@
+'use strict';
 
 let Handlers = require('../handlers/course-details');
 let Wreck = require('wreck');
+let Val = require('../lib/validation/course-details');
+const Joi = require('joi');
+
 
 module.exports = [{
     method: 'POST',
     path: '/api/course-details',
     config:{
-    	auth: 'adminTeacher'
+    	auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.create
+        }
     },
     handler: Handlers.create
 },{
     method: 'PUT',
     path: '/api/course-details/{id}/edit',
     config:{
-    	auth: 'adminTeacher'
+    	auth: 'adminTeacher',
+        payload:{
+            output: 'data'
+        },
+        validate:{
+            payload: Val.edit
+        }
     },
     handler: Handlers.edit
 }, {
