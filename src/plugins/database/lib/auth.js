@@ -58,7 +58,7 @@ exports.validateAdminTeacher = function (token, callback) {
     });
 };
 
-exports.validateAdminTeacher = function (token, callback) {
+exports.validateAdmin = function (token, callback) {
 
     this.get('SELECT * FROM users WHERE token = ?', 
         [token], (err, result) => {

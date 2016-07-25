@@ -528,17 +528,36 @@ module.exports.edit = function(request, reply){
 module.exports.increasePoints = function(request, reply){
     let uri = request.server.info.uri;
     let that = this;
-    Wreck.get(uri + '/api/users/' + request.params.id, (err, res, payload) => {
-        payload = JSON.parse(payload);
+    let tokenBearer = 'bearer ' + request.auth.credentials.token;
+    Wreck.get(uri + '/api/users/' + request.params.id, {headers: {'Authorization': tokenBearer}},  (err, res, payload) => {
+        if (err) {
+            throw err;
+        }
+
+        if (payload) {
+            payload = JSON.parse(payload);
        
 
-        let usrId = payload.id;
-        let points = payload.points;
-        ++points;
-        payload.points = points;
+            let usrId = payload.id;
+            let points = payload.points;
+            ++points;
 
-        
+            this.db.run('UPDATE users SET points = ? WHERE id = ?', 
+                [
+                    points,
+                    usrId
+                ], (err, result) => {
+                
 
+                if (err) {
+                    throw err;
+                }
+
+                reply('ok');
+            });
+        } else {
+            reply('Not found').code(404);
+        }
     });
 
 };

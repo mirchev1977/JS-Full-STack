@@ -43,7 +43,7 @@ module.exports = [{
     path: '/api/users/{id}/courses/{courseId}/completed-topics',
     handler: Handlers.getCourseCompletedTopics,
     config: {
-        auth: 'registered'
+        auth: 'registered',
         pre: [
             'servGetUser',
             'servGetUserCourses',
@@ -103,7 +103,7 @@ module.exports = [{
     handler: Handlers.editAdmin
 }, {
     method: 'PUT',
-    path: '/api/users/{id}/edit-admin',
+    path: '/api/users/{id}/edit',
     config: {
         auth: 'registered'
     },
