@@ -43,13 +43,12 @@ module.exports = [{
     method: 'DELETE',
     path: '/api/courses/{id}',
     config: {
-        auth: 'admin-teacher',
+        auth: 'admin',
         pre: [
             'servGetMaterialIds',
             'servDelCourseMaterials'
         ],
 
-        // auth: 'api'
     },
     handler: Handlers.delete
 }];

@@ -34,6 +34,23 @@ module.exports.getOne = function (request, reply) {
 };
 
 
+module.exports.getOneByUser = function (request, reply) {
+    this.db.get('SELECT * FROM users WHERE id = ?', [request.payload.id], (err, result) => {
+
+        if (err) {
+            throw err;
+        }
+
+        if (typeof result !== 'undefined') {
+            reply(result);
+        }
+        else {
+            reply('Not found').code(404);
+        }
+    });
+};
+
+
 module.exports.getCoursesSubscribedOn = function (request, reply) {
     this.db.all('SELECT u.id as usrId, u.first_name, u.last_name, u.role, c.id as courseId, c.name as courseName ' + 
         ' FROM users as u INNER JOIN user_courses' + 

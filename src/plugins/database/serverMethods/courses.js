@@ -32,6 +32,8 @@ module.exports.CourseGetQueries = function(server, db){
 module.exports.CourseDeleteQueries = function(server, db){
 
 	server.method('servDelCourseMaterials', (request, reply) => {
+		let tokenBearer = 'bearer ' + request.auth.credentials.token;
+
 		let materials = request.pre.servGetMaterialIds;
 		if (materials.length <= 0) {
 			reply('ok');
@@ -40,8 +42,9 @@ module.exports.CourseDeleteQueries = function(server, db){
 		mats = JSON.parse(mats);
 
 		if (materials) {
-			mats.forEach( function(material, index) {
-				Wreck.delete(request.server.info.uri + '/api/course-materials/' + material.id, function (err, res, payload) {});
+			mats.forEach( (material, index) => {
+				Wreck.delete(request.server.info.uri + '/api/course-materials/' + material.id, 
+					{headers: {'Authorization': tokenBearer}}, function (err, res, payload) {});
 
 				if (index === parseInt(mats.length) - 1) {
 		    		reply({status:'ok'});

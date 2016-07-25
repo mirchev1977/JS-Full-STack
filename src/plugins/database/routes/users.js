@@ -15,9 +15,16 @@ module.exports = [{
 	method: 'GET',
     path: '/api/users/{id}',
     config: {
-        auth: 'registered'
+        auth: 'admin'
     },
     handler: Handlers.getOne
+}, {
+    method: 'POST',
+    path: '/api/users/self',
+    config: {
+        auth: 'registered'
+    },
+    handler: Handlers.getOneByUser
 }, {
     method: 'GET',
     path: '/api/users/{id}/courses',
