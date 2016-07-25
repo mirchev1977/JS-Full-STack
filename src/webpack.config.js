@@ -46,10 +46,25 @@ module.exports = {
 	},
 
 	devServer: {
-		contentBase: 'public'
+		contentBase: 'public',
+		// historyApiFallback: true,
+        // hot: true,
+        // inline: true,
+        // stats: 'normal',
+        host: process.env.HOST || 'localhost',
+        port: process.env.PORT || 3000,
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:9000/',
+                secure: false
+            }
+        }
 	},
 
 	resolve: {
 		extensions: ['', '.js', '.es6']
-	}
+	},
+
+	devtool: 'eval-source-map'
+
 };
