@@ -21,7 +21,11 @@ exports.register = function(server, options, next){
 	CoursesServerMethods.CourseGetQueries(server, db);
 	CoursesServerMethods.CourseDeleteQueries(server, db);
 
-	server.register(require('hapi-auth-bearer-token'), (err) => {
+	server.register([
+        require('hapi-auth-bearer-token'), 
+        require('vision'), 
+        require('inert'), 
+        { register: require('lout') }], (err) => {
 
         if (err) {
             return next(err);
