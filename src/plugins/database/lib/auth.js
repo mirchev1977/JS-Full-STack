@@ -21,7 +21,6 @@ exports.validateRegistered = function (token, callback) {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: user.password,
             token: user.token,
             role: user.role,
             points: user.points
@@ -51,7 +50,6 @@ exports.validateAdminTeacher = function (token, callback) {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: user.password,
             token: user.token,
             role: user.role,
             points: user.points
@@ -82,7 +80,6 @@ exports.validateAdmin = function (token, callback) {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: user.password,
             token: user.token,
             role: user.role,
             points: user.points

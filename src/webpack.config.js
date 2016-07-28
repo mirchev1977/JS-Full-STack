@@ -21,6 +21,22 @@ module.exports = {
 	plugins: [commonPlugins],
 
 	module: {
+		preLoaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'jshint-loader'
+            },{
+				test: /\.es6$/,
+				exclude: /node_modules/,
+				loader: "babel-loader"
+			},
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader'
+            }
+        ],
 		loaders:[
 			{
 				test: /\.es6$/,
@@ -41,16 +57,25 @@ module.exports = {
 				test: /\.(jpg|png)$/,
 				exclude: /node_modules/,
 				loader: 'url-loader?limit=100000'
-			}
+			},
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+                query: {
+                    cacheDirectory: true,
+                    presets: ['react', 'es2015']
+                }
+            }
 		]
 	},
 
 	devServer: {
 		contentBase: 'public',
-		// historyApiFallback: true,
+		historyApiFallback: true,
         // hot: true,
-        // inline: true,
-        // stats: 'normal',
+        inline: true,
+        stats: 'normal',
         host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
         proxy: {
@@ -62,7 +87,7 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: ['', '.js', '.es6']
+		extensions: ['', '.js', '.es6', '.jsx']
 	},
 
 	devtool: 'eval-source-map'
