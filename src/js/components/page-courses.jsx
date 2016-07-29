@@ -25,8 +25,18 @@ export default class PageCourses extends React.Component{
 	_getCourses(){
 		return this.state.courses.map((course) => 
 		{ return <CourseTeacher courseId={course.id} onDelete = {this._deleteCourse.bind(this)}
-		courseName={course.name} key={course.id} />});
+		courseName={course.name} onChange={this._handleFieldChange.bind(this)} key={course.id} />});
 	}
+
+	_handleFieldChange(courseId, courseText){
+		this._updateCourseDb('/api/courses/' + courseId, courseText);
+		let courses = this.state.courses;
+		courses = courses.slice();
+		let current = courses[courseId];
+		current.name = courseText;
+		courses[courseId] = current;
+	}
+
 
 	componentWillMount() {
 		this._fetchCourses();
@@ -36,7 +46,7 @@ export default class PageCourses extends React.Component{
 	componentDidMount() {
 		this._timer= setInterval(
 		() => this._fetchCourses(),
-		5000);
+		10000);
 	}
 
 	componentWillUnmount() {
@@ -64,6 +74,20 @@ export default class PageCourses extends React.Component{
             },
 		  success: () => {
 		    this._fetchCourses();
+		  }
+		});
+	}
+
+	_updateCourseDb(url, courseText) {
+		jQuery.ajax({
+		  method: 'PUT',
+		  url: url,
+		  headers: {
+                'Authorization': 'bearerU2FsdGVkX185JuJ70Oq38E0Y4Ip96ozN2/kHBGkL2lwUQtbSfdOoVA7'+
+                '2oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc'
+            },
+            data: "name=" + courseText,
+		  success: () => {
 		  }
 		});
 	}
