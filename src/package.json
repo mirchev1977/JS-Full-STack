@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --inline -d",
-    "prod": "webpack-dev-server --inline -p",
+    "build:prod": "webpack --config ./webpack-production.config.js -p",
     "hapi": "node ./server.js"
   },
   "repository": {
