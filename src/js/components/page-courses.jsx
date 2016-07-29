@@ -1,7 +1,7 @@
 import React from 'react';
 import jQuery from 'jquery';
 // import Course from './course';
-import CourseAdmin from './course-teacher';
+import CourseTeacher from './course-teacher';
 
 
 export default class PageCourses extends React.Component{
@@ -24,7 +24,8 @@ export default class PageCourses extends React.Component{
 
 	_getCourses(){
 		return this.state.courses.map((course) => 
-			{ return <CourseAdmin courseId={course.id}  courseName={course.name} key={course.id} />});
+		{ return <CourseTeacher courseId={course.id} onDelete = {this._deleteCourse.bind(this)}
+		courseName={course.name} key={course.id} />});
 	}
 
 	componentWillMount() {
@@ -51,6 +52,30 @@ export default class PageCourses extends React.Component{
 		    this.setState({courses});
 		  }
 		});
+	}
+
+	_deleteCourseDb(url) {
+		jQuery.ajax({
+		  method: 'DELETE',
+		  url: url,
+		  headers: {
+                'Authorization': 'bearerU2FsdGVkX185JuJ70Oq38E0Y4Ip96ozN2/kHBGkL2lwUQtbSfdOoVA7'+
+                '2oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc'
+            },
+		  success: () => {
+		    this._fetchCourses();
+		  }
+		});
+	}
+
+	_deleteCourse(courseId){
+		let courses = this.state.courses.filter(function(course){
+			return course.id !== courseId;
+		});
+
+		this._deleteCourseDb('/api/courses/' + courseId);
+
+		this.setState({courses: courses});
 	}
 
 }
