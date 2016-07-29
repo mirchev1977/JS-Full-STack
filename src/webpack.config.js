@@ -6,9 +6,7 @@ var commonPlugins = new webpack.optimize.CommonsChunkPlugin('shared.js');
 module.exports = {
 	context: path.resolve('js'),
 	entry: {
-		about: './about_page.es6',
 		home: './home_page.es6',
-		contact: './contact_page.es6'
 	},
 
 	output: {
