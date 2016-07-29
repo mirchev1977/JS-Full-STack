@@ -8,7 +8,7 @@ import Layout from './layout/layout'
 
 
 import BlogPage from './pages/blog'
-import PicturePage from './pages/picture'
+import CoursesPage from './pages/courses'
 import VideoPage from './pages/video'
 
 const app = (
@@ -16,7 +16,7 @@ const app = (
     <Redirect from="/" to="/blog" />
     <Route path="/" component={Layout}>
       <Route path="blog" component={BlogPage} />
-      <Route path="picture" component={PicturePage} />
+      <Route path="courses" component={CoursesPage} />
       <Route path="video" component={VideoPage} />
     </Route>
   </Router>

@@ -8,4 +8,3 @@ export default class BlogPage extends React.Component {
   }
 }
 
-document.getElementById('headTitle').innerText = 'Video Page';
