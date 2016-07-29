@@ -1,7 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 
-console.log('hello from the home page!!! Nice to meet you! Yess...');
+
+console.log('hello from the home page!!! Nice to meet you!');
 
 let img = document.createElement('img');
 img.style.width = "100%";
