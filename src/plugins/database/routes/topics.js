@@ -18,7 +18,7 @@ module.exports = [{
 	method: 'POST',
     path: '/api/topics',
     config: {
-        auth: 'adminTeacher',
+        // auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -31,14 +31,14 @@ module.exports = [{
     method: 'PUT',
     path: '/api/topics/{id}',
     config: {
-        auth: 'adminTeacher'
+        // auth: 'adminTeacher'
     },
     handler: Handlers.edit
 }, {
 	method: 'DELETE',
     path: '/api/topics/{id}',
     config: {
-        auth: 'adminTeacher'
+        // auth: 'adminTeacher'
     },
     handler: Handlers.delete
 }];
