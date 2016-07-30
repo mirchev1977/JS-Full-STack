@@ -1,6 +1,8 @@
 import React from 'react';
 import jQuery from 'jquery';
 // import Course from './course';
+import ButtonCreate from './button-create';
+import FieldEdit from './field-edit';
 import CourseTeacher from './course-teacher';
 
 
@@ -10,16 +12,49 @@ export default class PageCourses extends React.Component{
 		super();
 
 		this.state = {
-			courses: []
+			courses: [],
+			isCreatingNew: false
 		};
 	}
 
 	render(){
-		var courses = this._getCourses();
+		let courses = this._getCourses();
+		let editField = this._revealNewCourseField();
+
 		return (<div className="courses-container">
 					<h1>Hello World From Page Courses.</h1>
+					{editField}
 					{courses}
 				</div>);
+	}
+
+
+	_createNewCourse(){
+		this.setState({isCreatingNew: true});
+		console.log(this.state.isCreatingNew);
+	}
+
+	_revealNewCourseField(){
+		if (!this.state.isCreatingNew) {
+			return <ButtonCreate createNew={this._createNewCourse.bind(this)} />;
+		} else {
+			return <FieldEdit onSave={this._saveNewCourse.bind(this)}/>
+		}
+	}
+
+	_saveNewCourse(courseName){
+		jQuery.ajax({
+		  method: 'POST',
+		  url: '/api/courses',
+		  headers: {
+                'Authorization': 'bearerU2FsdGVkX185JuJ70Oq38E0Y4Ip96ozN2/kHBGkL2lwUQtbSfdOoVA7'+
+                '2oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc'
+            },
+            data: "name=" + courseName,
+		  success: () => {
+		  	this.setState({isCreatingNew:false});
+		  }
+		});
 	}
 
 	_getCourses(){

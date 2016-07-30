@@ -9,8 +9,11 @@ export default class FieldEdit extends React.Component{
 		let text = this.props.text;
 		return(
 			<p className="editField">
-			<input type="text" onChange={this._handleChange.bind(this)} value={text} ref={(input) => this._text = input}/>
-			<ButtonSave onSave={this.props.onSave} />
+			<input type="text" onChange={this._handleChange.bind(this)}
+			onBlur={this._handleBlur.bind(this)}
+			 value={text} ref={(input) => this._text = input}/>
+			 
+			<ButtonSave />
 			</p>
 		);
 	}
@@ -19,5 +22,12 @@ export default class FieldEdit extends React.Component{
 	_handleChange(){
 		let text = this._text.value;
 		this.props.onChange(this.props.id, text);
+	}
+
+
+	//receives id and text
+	_handleBlur(){
+		let text = this._text.value;
+		this.props.onSave(text);
 	}
 }
