@@ -22,18 +22,36 @@ export default class PageCourses extends React.Component{
 		let coursesStudent = this._getCoursesStudent();
 		let editField = this._revealNewCourseField();
 		let role = sessionStorage.getItem('oss-role');
+		let statusAndGreeting = this._displayStatusAndGreeting();
 
 		if (role === 'admin' || role === 'teacher') {
 			return (<div className="courses-container">
 					<h1>Hello World From Page Courses.</h1>
+						{statusAndGreeting}
 						{editField}
 						{coursesTeacher}
 				</div>);
 		} else {
 			return (<div className="courses-container">
 					<h1>Hello World From Page Courses.</h1>
+						{statusAndGreeting}
 						{coursesStudent}
 				</div>);
+		}
+	}
+
+	_displayStatusAndGreeting(){
+		let role = sessionStorage.getItem('oss-role');
+		let first_name = sessionStorage.getItem('oss-first_name');
+
+		if (role === 'admin') {
+			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!</div>);
+		} else if(role === 'teacher'){
+			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!</div>);
+		} else if(role === 'student'){
+			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!</div>);
+		} else {
+			return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
 		}
 	}
 
@@ -73,7 +91,6 @@ export default class PageCourses extends React.Component{
 	}
 
 	_getCoursesStudent(){
-		console.log(this.state.courses);
 		return this.state.courses.map((course) => 
 		{ return <Course courseId={course.id} courseName={course.name}  key={course.id} />});
 	}
