@@ -37,6 +37,7 @@
     "lout": "^9.1.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-redirect": "^1.0.0",
     "react-router": "^2.6.0",
     "vision": "^4.1.0"
   },
