@@ -4,6 +4,7 @@ import Course from '../entities/course';
 import ButtonCreate from '../buttons/button-create';
 import FieldEdit from '../fields/field-edit';
 import CourseTeacher from '../entities/course-teacher';
+import ButtonLogout from '../buttons/button-logout';
 
 
 export default class PageCourses extends React.Component{
@@ -45,11 +46,11 @@ export default class PageCourses extends React.Component{
 		let first_name = sessionStorage.getItem('oss-first_name');
 
 		if (role === 'admin') {
-			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!</div>);
+			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
 		} else if(role === 'teacher'){
-			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!</div>);
+			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
 		} else if(role === 'student'){
-			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!</div>);
+			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
 		} else {
 			return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
 		}
