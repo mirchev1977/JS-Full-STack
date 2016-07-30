@@ -1,8 +1,5 @@
 import React from 'react';
-
-
-
-
+import FormLogin from '../forms/form-login';
 
 
 
@@ -14,6 +11,7 @@ export default class PageLogin extends React.Component{
 		
 		return (<div className="login-container">
 			<h1>Hello World From Page Login.</h1>
+			<FormLogin />
 		</div>);
 	}
 
