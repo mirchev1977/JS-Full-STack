@@ -6,6 +6,7 @@ import FieldEdit from '../fields/field-edit';
 import CourseTeacher from '../entities/course-teacher';
 import ButtonLogout from '../buttons/button-logout';
 import ButtonMyClassRoom from '../buttons/button-my-classroom';
+import ButtonAllCourses from '../buttons/button-all-courses';
 
 
 export default class PageCourses extends React.Component{
@@ -58,18 +59,46 @@ export default class PageCourses extends React.Component{
 		let role = sessionStorage.getItem('oss-role');
 		let first_name = sessionStorage.getItem('oss-first_name');
 
-		if (role === 'admin') {
+
+		if (this.state.isFilteredByUser === true) {
+			if (role === 'admin') {
 			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!
-				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
-		} else if(role === 'teacher'){
-			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!
-				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
-		} else if(role === 'student'){
-			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!
-				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
+				<ButtonAllCourses removeFilter = {this._getAllCourses.bind(this)}/>
+				<ButtonLogout /></div>);
+			} else if(role === 'teacher'){
+				return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!
+					<ButtonAllCourses removeFilter = {this._getAllCourses.bind(this)}/>
+					<ButtonLogout /></div>);
+			} else if(role === 'student'){
+				return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!
+					<ButtonAllCourses removeFilter = {this._getAllCourses.bind(this)}/>
+					<ButtonLogout /></div>);
+			} else {
+				return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
+			}
 		} else {
-			return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
+			if (role === 'admin') {
+				return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!
+					<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/>
+					<ButtonLogout /></div>);
+			} else if(role === 'teacher'){
+				return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!
+					<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/>
+					<ButtonLogout /></div>);
+			} else if(role === 'student'){
+				return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!
+					<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/>
+					<ButtonLogout /></div>);
+			} else {
+				return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
+			}
 		}
+		
+	}
+
+
+	_getAllCourses(){
+		this.setState({isFilteredByUser: false});
 	}
 
 	_enterMyClassRoom(){
@@ -108,12 +137,12 @@ export default class PageCourses extends React.Component{
 	_getCoursesByUserId(){
 		return this.state.courses.map((course) => 
 		{ return <CourseTeacher courseId={course.courseId} onDelete = {this._deleteCourse.bind(this)}
-		courseName={course.courseName} onChange={this._handleFieldChange.bind(this)}  />});
+		courseName={course.courseName} onChange={this._handleFieldChange.bind(this)} key={course.courseId} />});
 	}
 
 	_getCoursesStudentByUserId(){
 		return this.state.courses.map((course) => 
-		{ return <Course courseId={course.courseId} courseName={course.courseName}   />});
+		{ return <Course courseId={course.courseId} courseName={course.courseName} key={course.courseId}  />});
 	}
 
 	_getCourses(){
