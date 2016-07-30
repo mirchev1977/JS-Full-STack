@@ -1,7 +1,7 @@
 import React from 'react';
-import DeleteButton from './button-delete';
-import FieldDisplay from './field-display';
-import FieldEdit from './field-edit';
+import DeleteButton from '../buttons/button-delete';
+import FieldDisplay from '../fields/field-display';
+import FieldEdit from '../fields/field-edit';
 
 //receives courseId and courseName
 export default class CourseTeacher extends React.Component{

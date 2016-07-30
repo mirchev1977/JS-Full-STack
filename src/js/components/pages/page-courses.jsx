@@ -1,9 +1,9 @@
 import React from 'react';
 import jQuery from 'jquery';
 // import Course from './course';
-import ButtonCreate from './button-create';
-import FieldEdit from './field-edit';
-import CourseTeacher from './course-teacher';
+import ButtonCreate from '../buttons/button-create';
+import FieldEdit from '../fields/field-edit';
+import CourseTeacher from '../entities/course-teacher';
 
 
 export default class PageCourses extends React.Component{

@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonSave from './button-save';
+import ButtonSave from '../buttons/button-save';
 
 //receives id and text
 export default class FieldEdit extends React.Component{

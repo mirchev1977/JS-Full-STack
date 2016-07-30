@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonEdit from './button-edit';
+import ButtonEdit from '../buttons/button-edit';
 
 //receives id and text
 export default class FieldDisplay extends React.Component{
