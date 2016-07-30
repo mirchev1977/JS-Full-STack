@@ -4,7 +4,8 @@ import PageCourses from '../components/pages/page-courses';
 export default class Courses extends React.Component{
 	render(){
 		return(
-			<div><PageCourses apiUrl="/api/courses" /></div>
+			<div className="page-courses">
+			<PageCourses apiUrl="/api/courses" /></div>
 		);
 	}
 }

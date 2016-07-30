@@ -9,7 +9,7 @@ import Layout from './layout/layout'
 
 import BlogPage from './pages/blog'
 import CoursesPage from './pages/courses'
-import VideoPage from './pages/video'
+import LoginPage from './pages/login'
 
 const app = (
   <Router history={browserHistory}>
@@ -17,7 +17,7 @@ const app = (
     <Route path="/" component={Layout}>
       <Route path="blog" component={BlogPage} />
       <Route path="courses" component={CoursesPage} />
-      <Route path="video" component={VideoPage} />
+      <Route path="login" component={LoginPage} />
     </Route>
   </Router>
 )
