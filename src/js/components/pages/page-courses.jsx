@@ -1,6 +1,6 @@
 import React from 'react';
 import jQuery from 'jquery';
-// import Course from './course';
+import Course from '../entities/course';
 import ButtonCreate from '../buttons/button-create';
 import FieldEdit from '../fields/field-edit';
 import CourseTeacher from '../entities/course-teacher';
@@ -18,14 +18,23 @@ export default class PageCourses extends React.Component{
 	}
 
 	render(){
-		let courses = this._getCourses();
+		let coursesTeacher = this._getCourses();
+		let coursesStudent = this._getCoursesStudent();
 		let editField = this._revealNewCourseField();
+		let role = sessionStorage.getItem('oss-role');
 
-		return (<div className="courses-container">
+		if (role === 'admin' || role === 'teacher') {
+			return (<div className="courses-container">
 					<h1>Hello World From Page Courses.</h1>
-					{editField}
-					{courses}
+						{editField}
+						{coursesTeacher}
 				</div>);
+		} else {
+			return (<div className="courses-container">
+					<h1>Hello World From Page Courses.</h1>
+						{coursesStudent}
+				</div>);
+		}
 	}
 
 
@@ -61,6 +70,12 @@ export default class PageCourses extends React.Component{
 		return this.state.courses.map((course) => 
 		{ return <CourseTeacher courseId={course.id} onDelete = {this._deleteCourse.bind(this)}
 		courseName={course.name} onChange={this._handleFieldChange.bind(this)} key={course.id} />});
+	}
+
+	_getCoursesStudent(){
+		console.log(this.state.courses);
+		return this.state.courses.map((course) => 
+		{ return <Course courseId={course.id} courseName={course.name}  key={course.id} />});
 	}
 
 	_handleFieldChange(courseId, courseText){
