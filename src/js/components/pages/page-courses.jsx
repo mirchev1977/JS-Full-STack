@@ -55,6 +55,22 @@ export default class PageCourses extends React.Component{
 		}
 	}
 
+	_subscribeUser(courseId){
+		let usrId = sessionStorage.getItem('oss-id');
+		
+		jQuery.ajax({
+		  method: 'POST',
+		  url: '/api/users/' + usrId + '/subscribe/courses/' + courseId,
+		  headers: {
+                'Authorization': 'bearerU2FsdGVkX185JuJ70Oq38E0Y4Ip96ozN2/kHBGkL2lwUQtbSfdOoVA7'+
+                '2oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc'
+            },
+		  success: () => {
+		  	
+		  }
+		});
+	}
+
 	_displayStatusAndGreeting(){
 		let role = sessionStorage.getItem('oss-role');
 		let first_name = sessionStorage.getItem('oss-first_name');
@@ -148,7 +164,9 @@ export default class PageCourses extends React.Component{
 	_getCourses(){
 		return this.state.courses.map((course) => 
 		{ return <CourseTeacher courseId={course.id} onDelete = {this._deleteCourse.bind(this)}
-		courseName={course.name} onChange={this._handleFieldChange.bind(this)} key={course.id} />});
+		courseName={course.name} onChange={this._handleFieldChange.bind(this)}
+		subscribeUser = {this._subscribeUser.bind(this)}
+		 key={course.id} />});
 	}
 
 
@@ -156,7 +174,9 @@ export default class PageCourses extends React.Component{
 
 	_getCoursesStudent(){
 		return this.state.courses.map((course) => 
-		{ return <Course courseId={course.id} courseName={course.name}  key={course.id} />});
+		{ return <Course courseId={course.id} courseName={course.name}  
+		subscribeUser = {this._subscribeUser.bind(this)}
+		key={course.id} />});
 	}
 
 	_handleFieldChange(courseId, courseText){
