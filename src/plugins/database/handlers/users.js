@@ -639,10 +639,12 @@ module.exports.delete = function(request, reply){
 
 module.exports.unsubscribeCourse = function(request, reply){
     let usrId = request.params.id;
+    let courseId = request.params.courseId;
 
-    this.db.run('DELETE FROM user_courses WHERE user_id = ?', 
+    this.db.run('DELETE FROM user_courses WHERE user_id = ? AND course_id = ?', 
         [
-            usrId
+            usrId,
+            courseId
         ], (err, result) => {
         
 

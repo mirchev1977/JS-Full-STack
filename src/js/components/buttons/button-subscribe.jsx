@@ -5,7 +5,7 @@ export default class ButtonSubscribe extends React.Component{
 	//receives function createNew
 	render(){
 		return(
-			<button className="deleteButton" onClick = {this._handleClick.bind(this)}>Subscribe</button>
+			<button className="buttonSubscribe" onClick = {this._handleClick.bind(this)}>Subscribe</button>
 		);
 		
 	}
