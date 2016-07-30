@@ -5,6 +5,7 @@ import ButtonCreate from '../buttons/button-create';
 import FieldEdit from '../fields/field-edit';
 import CourseTeacher from '../entities/course-teacher';
 import ButtonLogout from '../buttons/button-logout';
+import ButtonMyClassRoom from '../buttons/button-my-classroom';
 
 
 export default class PageCourses extends React.Component{
@@ -14,13 +15,25 @@ export default class PageCourses extends React.Component{
 
 		this.state = {
 			courses: [],
-			isCreatingNew: false
+			isCreatingNew: false,
+			isFilteredByUser: false
 		};
+
+		this._timer;
 	}
 
 	render(){
-		let coursesTeacher = this._getCourses();
-		let coursesStudent = this._getCoursesStudent();
+		let coursesTeacher;
+		let coursesStudent;
+
+		if (this.state.isFilteredByUser === false) {
+		 	coursesTeacher = this._getCourses();
+		 	coursesStudent = this._getCoursesStudent();
+		} else{
+			coursesTeacher = this._getCoursesByUserId();
+			 coursesStudent = this._getCoursesStudentByUserId();
+		}
+
 		let editField = this._revealNewCourseField();
 		let role = sessionStorage.getItem('oss-role');
 		let statusAndGreeting = this._displayStatusAndGreeting();
@@ -46,20 +59,27 @@ export default class PageCourses extends React.Component{
 		let first_name = sessionStorage.getItem('oss-first_name');
 
 		if (role === 'admin') {
-			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
+			return (<div className="greeting">Admin: Hello, {first_name.toUpperCase()}!
+				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
 		} else if(role === 'teacher'){
-			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
+			return (<div className="greeting">Teacher: Hello, {first_name.toUpperCase()}!
+				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
 		} else if(role === 'student'){
-			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!<ButtonLogout /></div>);
+			return (<div className="greeting">Student: Hello, {first_name.toUpperCase()}!
+				<ButtonMyClassRoom toMyClassRoom = {this._enterMyClassRoom.bind(this)}/><ButtonLogout /></div>);
 		} else {
 			return (<div className="greeting">Visitor: Hello, visitor! Please, log in or sign up!</div>);
 		}
 	}
 
+	_enterMyClassRoom(){
+		this._fetchCoursesById();
+		this.setState({isFilteredByUser: true});
+	}
+
 
 	_createNewCourse(){
 		this.setState({isCreatingNew: true});
-		console.log(this.state.isCreatingNew);
 	}
 
 	_revealNewCourseField(){
@@ -85,11 +105,25 @@ export default class PageCourses extends React.Component{
 		});
 	}
 
+	_getCoursesByUserId(){
+		return this.state.courses.map((course) => 
+		{ return <CourseTeacher courseId={course.courseId} onDelete = {this._deleteCourse.bind(this)}
+		courseName={course.courseName} onChange={this._handleFieldChange.bind(this)}  />});
+	}
+
+	_getCoursesStudentByUserId(){
+		return this.state.courses.map((course) => 
+		{ return <Course courseId={course.courseId} courseName={course.courseName}   />});
+	}
+
 	_getCourses(){
 		return this.state.courses.map((course) => 
 		{ return <CourseTeacher courseId={course.id} onDelete = {this._deleteCourse.bind(this)}
 		courseName={course.name} onChange={this._handleFieldChange.bind(this)} key={course.id} />});
 	}
+
+
+
 
 	_getCoursesStudent(){
 		return this.state.courses.map((course) => 
@@ -107,25 +141,60 @@ export default class PageCourses extends React.Component{
 
 
 	componentWillMount() {
-		this._fetchCourses();
+		if (this.state.isFilteredByUser) {
+			this._fetchCoursesById();
+		} else {
+			this._fetchCourses();
+		}
 	}
 
 
 	componentDidMount() {
+
 		this._timer= setInterval(
-		() => this._fetchCourses(),
-		10000);
+		() => this._coursesRouter(),
+		5000);
+
 	}
+
+	_coursesRouter(){
+
+		if (this.state.isFilteredByUser === true) {
+			this._fetchCoursesById();
+		} else {
+			this._fetchCourses();
+		}
+	}
+	
+
+
+
 
 	componentWillUnmount() {
 		clearInterval(this._timer);
 	}
 
 
+
 	_fetchCourses() {
+		let url;
+		url = '/api/courses';
+
 		jQuery.ajax({
 		  method: 'GET',
-		  url: this.props.apiUrl,
+		  url: url,
+		  success: (courses) => {
+		    this.setState({courses});
+		  }
+		});
+	}
+
+
+	_fetchCoursesById() {
+		let usrId = sessionStorage.getItem('oss-id');
+		jQuery.ajax({
+		  method: 'GET',
+		  url: '/api/users/' + usrId + '/courses',
 		  success: (courses) => {
 		    this.setState({courses});
 		  }
