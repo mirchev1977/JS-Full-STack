@@ -9,7 +9,7 @@ import Layout from './layout/layout'
 
 
 
-import BlogPage from './pages/blog'
+import HomePage from './pages/home'
 import CoursesPage from './pages/courses'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
@@ -19,7 +19,7 @@ const app = (
   <Router history={browserHistory}>
     <Redirect from="/" to="/blog" />
     <Route path="/" component={Layout}>
-      <Route path="blog" component={BlogPage} />
+      <Route path="home" component={HomePage} />
       <Route path="courses" component={CoursesPage} />
       <Route path="login" component={LoginPage} />
       <Route path="register" component={RegisterPage} />

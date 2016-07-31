@@ -10,7 +10,6 @@ module.exports = [{
     method: 'GET',
     path: '/api/courses',
     config:{
-        // auth: "adminTeacher"
     },
     handler: Handlers.getAll
 }, {
@@ -21,7 +20,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/courses',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -34,7 +33,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/courses/{id}/details',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -47,7 +46,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/courses/{id}/material',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -60,7 +59,7 @@ module.exports = [{
     method: 'PUT',
     path: '/api/courses/{id}',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -73,7 +72,7 @@ module.exports = [{
     method: 'DELETE',
     path: '/api/courses/{id}',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         pre: [
             'servGetMaterialIds',
             'servDelCourseMaterials'

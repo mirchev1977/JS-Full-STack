@@ -10,7 +10,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/course-details',
     config:{
-    	// auth: 'adminTeacher',
+    	auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -23,7 +23,7 @@ module.exports = [{
     method: 'PUT',
     path: '/api/course-details/{id}/edit',
     config:{
-    	// auth: 'adminTeacher',
+    	auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -36,7 +36,7 @@ module.exports = [{
     method: 'DELETE',
     path: '/api/course-details/{id}',
     config:{
-    	// auth: 'adminTeacher'
+    	auth: 'adminTeacher'
     },
     handler: Handlers.delete
 }];

@@ -18,7 +18,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/course-materials',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -31,7 +31,7 @@ module.exports = [{
     method: 'POST',
     path: '/api/course-materials/{id}/topic',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -44,7 +44,7 @@ module.exports = [{
     method: 'PUT',
     path: '/api/course-materials/{id}',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         payload:{
             output: 'data'
         },
@@ -57,7 +57,7 @@ module.exports = [{
     method: 'DELETE',
     path: '/api/course-materials/{id}',
     config: {
-        // auth: 'adminTeacher',
+        auth: 'adminTeacher',
         pre:[
             'servDelMaterialTopic',
             'servDelUserTopics'

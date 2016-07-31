@@ -8,7 +8,7 @@ export default class BlogPage extends React.Component {
       <div>
         <div className="cell">
           <article className="article">
-            <h1 className="article-title">Robots Have Feelings, Too</h1>
+            <h1 className="article-title">Welcome to OSS - The Online School Syste</h1>
             <div className="article-body">
               <p>
                 The term “artificial intelligence” has been floating around since the
