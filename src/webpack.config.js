@@ -5,16 +5,12 @@ var commonPlugins = new webpack.optimize.CommonsChunkPlugin('shared.js');
 
 module.exports = {
 	context: path.resolve('js'),
-	entry: {
-		about: './about_page.es6',
-		home: './home_page.es6',
-		contact: './contact_page.es6'
-	},
+	entry: './home_page.jsx',
 
 	output: {
 		path: path.resolve('build/js'),
 		publicPath: '/public/assets/js',
-		filename: '[name].js'
+		filename: 'home.js'
 	},
 	watch: true,
 
@@ -61,14 +57,16 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'eslint-loader',
+                loader: 'babel',
                 query: {
                     cacheDirectory: true,
-                    presets: ['react', 'es2015']
+                    presets: ['es2015', 'react']
                 }
             }
 		]
 	},
+
+	devtool: 'eval-source-map',
 
 	devServer: {
 		contentBase: 'public',
@@ -90,6 +88,5 @@ module.exports = {
 		extensions: ['', '.js', '.es6', '.jsx']
 	},
 
-	devtool: 'eval-source-map'
 
 };

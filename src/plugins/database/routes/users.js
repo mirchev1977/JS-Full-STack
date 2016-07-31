@@ -168,7 +168,7 @@ module.exports = [{
     handler: Handlers.delete
 }, {
     method: 'DELETE',
-    path: '/api/users/{id}/unsubscribe-course',
+    path: '/api/users/{id}/unsubscribe-course/{courseId}',
     config: {
         auth: 'registered'
     },

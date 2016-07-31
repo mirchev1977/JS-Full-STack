@@ -32,7 +32,9 @@ module.exports.CourseGetQueries = function(server, db){
 module.exports.CourseDeleteQueries = function(server, db){
 
 	server.method('servDelCourseMaterials', (request, reply) => {
-		let tokenBearer = 'bearer ' + request.auth.credentials.token;
+
+		// let tokenBearer = 'bearer ' + request.auth.credentials.token;
+		let tokenBearer = 'bearer U2FsdGVkX185JuJ70Oq38E0Y4Ip96ozN2/kHBGkL2lwUQtbSfdOoVA72oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc';
 
 		let materials = request.pre.servGetMaterialIds;
 		if (materials.length <= 0) {

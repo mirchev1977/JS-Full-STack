@@ -228,7 +228,9 @@ module.exports.create = function (request, reply) {
     pass = pass.toString();
 
     // Encrypt 
-    let tokenStr = '{"email": "' +  request.payload.email  + 
+    let tokenStr = '{"first_name":"' + request.payload.first_name + '","last_name":"' + 
+    request.payload.last_name + 
+    '","email": "' +  request.payload.email  + 
     '","password":"' + request.payload.password + '","role":"student"}';
 
     let tok = CryptoJS.AES.encrypt(tokenStr, 'this is the token');
@@ -284,7 +286,7 @@ module.exports.login = function (request, reply) {
             if (plaintext === request.payload.password) {
                 // console.log(request.state.oss);
 
-                reply('ok').state('oss', result.token, {path:'/'});
+                reply(result).state('oss', result.token, {path:'/'});
             } else {
                 reply('Not found').code(404);
             }
@@ -309,7 +311,9 @@ module.exports.createByAdmin = function (request, reply) {
     let pass = CryptoJS.AES.encrypt(request.payload.password, 'secret key 123');
     pass = pass.toString();
 
-    let tokenStr = '{"email": "' +  request.payload.email  + 
+    let tokenStr = '{"first_name":"' + request.payload.first_name + '","last_name":"' + 
+    request.payload.last_name + 
+    '","email": "' +  request.payload.email  + 
     '","password":"' + request.payload.password + '","role":"' + request.payload.role + '"}';
 
     let tok = CryptoJS.AES.encrypt(tokenStr, 'this is the token');
@@ -635,10 +639,12 @@ module.exports.delete = function(request, reply){
 
 module.exports.unsubscribeCourse = function(request, reply){
     let usrId = request.params.id;
+    let courseId = request.params.courseId;
 
-    this.db.run('DELETE FROM user_courses WHERE user_id = ?', 
+    this.db.run('DELETE FROM user_courses WHERE user_id = ? AND course_id = ?', 
         [
-            usrId
+            usrId,
+            courseId
         ], (err, result) => {
         
 

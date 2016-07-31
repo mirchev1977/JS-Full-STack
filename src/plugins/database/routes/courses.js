@@ -10,7 +10,6 @@ module.exports = [{
     method: 'GET',
     path: '/api/courses',
     config:{
-        auth: "adminTeacher"
     },
     handler: Handlers.getAll
 }, {
