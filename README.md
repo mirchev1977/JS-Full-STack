@@ -42,3 +42,14 @@ There you can browse throught the pages of OSS: Home, Courses, Login, and Regist
 You can also register as a student on the platform, but if unregistered,  on the page "localhost:3000/courses/" you can have a look at what course of interest you may find.
 
 In order to subscribe on a course you have to register and then log in.
+
+
+In the main folder of the project you downloaded from github.com
+you will also find additional documentation for the project:
+- database schema of the backend api in pdf format
+- In the folder Documentation-Backend you can find the backend uri's to make database queries.
+
+There you can also find a brief the initial blueprint of the project:
+https://github.com/mirchev1977/School-System/blob/master/Course_Fullstack_React_Project_Summary.pdf .
+
+From the same folder you can also download and review a presentation of the project in both pdf and ppt format.
