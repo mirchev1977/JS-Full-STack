@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import ButtonEdit from '../buttons/button-edit';
 

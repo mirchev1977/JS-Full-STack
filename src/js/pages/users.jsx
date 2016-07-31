@@ -1,13 +1,13 @@
 'user strict';
 
 import React from 'react';
-import PageCourses from '../components/pages/page-courses';
+import PageUsers from '../components/pages/page-users.jsx';
 
 export default class Courses extends React.Component{
 	render(){
 		return(
 			<div className="page-courses">
-			<PageCourses apiUrl="/api/courses" /></div>
+			<PageUsers apiUrl="/api/users" /></div>
 		);
 	}
 }

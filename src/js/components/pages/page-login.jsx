@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import FormLogin from '../forms/form-login';
 

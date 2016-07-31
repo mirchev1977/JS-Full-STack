@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 
 export default class ButtonMyClassRoom extends React.Component{

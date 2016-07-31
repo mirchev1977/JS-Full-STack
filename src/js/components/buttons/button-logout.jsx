@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 
 export default class ButtonLogout extends React.Component{

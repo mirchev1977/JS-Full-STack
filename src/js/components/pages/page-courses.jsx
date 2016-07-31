@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import jQuery from 'jquery';
 import Course from '../entities/course';
@@ -7,6 +9,7 @@ import CourseTeacher from '../entities/course-teacher';
 import ButtonLogout from '../buttons/button-logout';
 import ButtonMyClassRoom from '../buttons/button-my-classroom';
 import ButtonAllCourses from '../buttons/button-all-courses';
+import ButtonManageUsers from '../buttons/button-manage-users';
 
 
 export default class PageCourses extends React.Component{
@@ -39,7 +42,17 @@ export default class PageCourses extends React.Component{
 		let role = sessionStorage.getItem('oss-role');
 		let statusAndGreeting = this._displayStatusAndGreeting();
 
-		if (role === 'admin' || role === 'teacher') {
+		if (role === 'admin') {
+			return (<div className="courses-container">
+				<h1>Hello World From Page Courses.</h1>
+					<ButtonManageUsers manageUsers = {this._manageUsers.bind(this)} />
+					{statusAndGreeting}
+					{editField}
+					{coursesTeacher}
+			</div>);
+		}
+
+		if (role === 'teacher') {
 			return (<div className="courses-container">
 					<h1>Hello World From Page Courses.</h1>
 						{statusAndGreeting}
@@ -53,6 +66,10 @@ export default class PageCourses extends React.Component{
 						{coursesStudent}
 				</div>);
 		}
+	}
+
+	_manageUsers(){
+		window.location.replace('/users');
 	}
 
 	_subscribeUser(courseId){

@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import ButtonSave from '../buttons/button-save';
 

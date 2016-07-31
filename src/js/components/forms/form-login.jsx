@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import jQuery from 'jquery';
 import CryptoJS from 'crypto-js';

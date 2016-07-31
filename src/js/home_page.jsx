@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import jQuery from 'jquery';
@@ -11,6 +13,7 @@ import BlogPage from './pages/blog'
 import CoursesPage from './pages/courses'
 import RegisterPage from './pages/register'
 import LoginPage from './pages/login'
+import UsersPage from './pages/users'
 
 const app = (
   <Router history={browserHistory}>
@@ -20,6 +23,7 @@ const app = (
       <Route path="courses" component={CoursesPage} />
       <Route path="login" component={LoginPage} />
       <Route path="register" component={RegisterPage} />
+      <Route path="users" component={UsersPage} />
     </Route>
   </Router>
 )

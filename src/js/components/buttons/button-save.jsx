@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 
 //receives id, function onSave

@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import PageLogin from '../components/pages/page-login';
 

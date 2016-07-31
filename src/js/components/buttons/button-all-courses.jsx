@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 
 export default class ButtonAllCourses extends React.Component{

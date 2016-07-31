@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import jQuery from 'jquery';
 
@@ -42,7 +44,7 @@ export default class FormLogin extends React.Component{
                 '2oFCvAQL9lYcIJdrNvOuOHt37UtQRUaqEuHKCuyeVS9o35/j4EMo6vhA2sx13yIQDg9ZSZsVc'
             },
             data: "first_name=" + firstName + "&last_name=" + lastName +  "&email=" + email + "&password=" + password,
-		  success: (callback) => {
+		  success: () => {
 		  	window.location.replace('/login');
 		  }
 		});

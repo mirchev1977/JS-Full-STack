@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import FieldDisplay from '../fields/field-display-no-ed';
 import ButtonSubscribe from '../buttons/button-subscribe';

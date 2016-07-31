@@ -1,3 +1,5 @@
+'user strict';
+
 import React from 'react';
 import DeleteButton from '../buttons/button-delete';
 import ButtonSubscribe from '../buttons/button-subscribe';
